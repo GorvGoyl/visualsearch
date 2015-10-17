@@ -33,8 +33,8 @@
   cursor: text;
   position: relative;
   background: transparent;
-  border: 2px solid #272727;
-  border-radius: 4px; -webkit-border-radius: 8px; -moz-border-radius: 16px;
+  border: 2px solid #ccc;
+  border-radius: 16px; -webkit-border-radius: 16px; -moz-border-radius: 16px;
   background-color: #fafafa;
   -webkit-box-shadow: inset 0px 0px 3px #ccc;
   -moz-box-shadow: inset 0px 0px 3px #ccc;
@@ -125,7 +125,7 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 10px;
-    color: #648bf5;
+    color: #808080;
     padding: 8px 0 5px;
     line-height: 13px;
     cursor: pointer;
@@ -143,7 +143,7 @@
   .VS-search .search_facet input {
     margin: 0;
     padding: 0;
-    color: #6EADF5;
+    color: #000;
     font-size: 13px;
     line-height: 16px;
     padding: 5px 0 5px 4px;
