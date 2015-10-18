@@ -139,51 +139,50 @@ font-family: Segoe UI,Trebuchet MS,Sans-Serif;
 
 function Values() {
 keys = [
-                'account', 
-                'filter', 
-                'access', 
-				'city', 
-                'country'
+			'account', 
+			'filter', 
+			'access', 
+			'city', 
+			'country'
 
               ];
 			  
 			  
-			  
 account = [
-                    'Amanda',
-                    'Aron' ,
-                    'Eric' ,
-                    'Jeremy',
-                    'Samuel',
-                    'Scott' 
+			'Amanda',
+			'Aron' ,
+			'Eric' ,
+			'Jeremy',
+			'Samuel',
+			'Scott' 
                   ];
 filter = ['published', 'unpublished', 'draft'];
 access = [
-                    'Pentagon Papers',
-                    'CoffeeScript Manual',
-                    'Laboratory for Object Oriented Thinking',
-                    'A Repository Grows in Brooklyn'
+			'Pentagon Papers',
+			'CoffeeScript Manual',
+			'Laboratory for Object Oriented Thinking',
+			'A Repository Grows in Brooklyn'
                   ];
 city = [
-                    'Cleveland',
-                    'New York City',
-                    'Brooklyn',
-                    'Manhattan',
-                    'Queens',
-                    'The Bronx',
-                    'Staten Island',
-                    'San Francisco',
-                    'Los Angeles',
-                    'Seattle',
-                    'London',
-                    'Portland',
-                    'Chicago',
-                    'Boston'
+			'Cleveland',
+			'New York City',
+			'Brooklyn',
+			'Manhattan',
+			'Queens',
+			'The Bronx',
+			'Staten Island',
+			'San Francisco',
+			'Los Angeles',
+			'Seattle',
+			'London',
+			'Portland',
+			'Chicago',
+			'Boston'
                   ];
 country = [
-                    "China", "India", "United States", "Indonesia", "Brazil",
-                    "Pakistan", "Bangladesh", "Nigeria", "Russia", "Japan",
-                    "Mexico", "Philippines", "Vietnam"
+			"China", "India", "United States", "Indonesia", "Brazil",
+			"Pakistan", "Bangladesh", "Nigeria", "Russia", "Japan",
+			"Mexico", "Philippines", "Vietnam"
                   ];
 access = ['public', 'private', 'protected'];
 }
@@ -261,17 +260,23 @@ access = ['public', 'private', 'protected'];
 					 if(x =="text")	//if adding key value by inserting ":" instead of hitting tab
 					 {				//x will have "text"
 					 x = v.substring(0,v.lastIndexOf(":")); // v will have "key:value" so extract key
-					 v = v.substring(v.lastIndexOf(":")+1,v.length);
+					 v = v.substring(v.lastIndexOf(":")+1,v.length); //and extract value
 					 }
 				  if (keys.indexOf(x)==-1) {
 					keys.push(x);
-					x = new Array();
+					
 					}
               }
             }
 			},
-            facetMatches : function(callback) {
-              callback(keys);
+            facetMatches : function(callback) {	//show keys which aren't present in box
+			var keys_in_box = $('.VS-search  .VS-search-inner .search_facet .category').text();
+			keys_in_box = keys_in_box.split(":");
+			var curr_keys = keys.concat();
+			curr_keys = curr_keys.filter( function( el ) {
+			return keys_in_box.indexOf( el ) < 0;
+} );
+              callback(curr_keys);
             }
           }
         });
