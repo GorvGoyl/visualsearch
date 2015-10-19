@@ -137,6 +137,16 @@ font-family: Segoe UI,Trebuchet MS,Sans-Serif;
     <div style =" " id="search_query">&nbsp;</div>
 <script>
 
+function keys_to_show(curr_values) {	//show values whcih aren't present in box
+			var values_in_box = $('.VS-search  .VS-search-inner .search_facet .search_facet_input_container').map(function(){
+               return $.trim($(this).text());
+            }).get();
+				curr_values = curr_values.filter( function( el ) {
+				return values_in_box.indexOf( el ) < 0;
+				} );
+				return curr_values;
+				}
+
 function Values() {
 keys = [
 			'account', 
@@ -188,7 +198,16 @@ access = ['public', 'private', 'protected'];
 }
 </script>
     <script type="text/javascript" charset="utf-8">
-      $(document).ready(function() {Values();
+      $(document).ready(function() {
+	  			$("*").blur(function(){
+    $(".no_search ul:nth-last-child(2)").hide();
+}).focusin(function(){
+    $(".no_search ul:nth-last-child(2)").show();
+}).focusout(function(){
+    $(".no_search ul:nth-last-child(2)").hide();
+});
+	  
+	  Values();
         window.visualSearch = VS.init({
           container  : $('#search_box_container'),
           query      : 'country: "United States"' ,
@@ -217,21 +236,23 @@ access = ['public', 'private', 'protected'];
             },
             valueMatches : function(category, searchTerm, callback) {
 			
+			
               switch (category) {
               case 'account':
-                  callback(account);
+				
+				callback(keys_to_show(account.concat()));
                   break;
                 case 'filter':
-                  callback(filter);
+                  callback(keys_to_show(filter.concat()));
                   break;
                 case 'access':
-                  callback(access);
+                  callback(keys_to_show(access.concat()));
                   break;
                 case 'city':
-                  callback(city)
+                  callback(keys_to_show(city.concat()));
                   break;
                 case 'country':
-                  callback(country, {
+                  callback(keys_to_show(country.concat()), {
                     preserveOrder: true // Otherwise the selected value is brought to the top
                   });
                   break;
@@ -268,15 +289,13 @@ access = ['public', 'private', 'protected'];
 					}
               }
             }
+			$(".no_search ul:nth-last-child(2)").hide();
 			},
             facetMatches : function(callback) {	//show keys which aren't present in box
-			var keys_in_box = $('.VS-search  .VS-search-inner .search_facet .category').text();
-			keys_in_box = keys_in_box.split(":");
-			var curr_keys = keys.concat();
-			curr_keys = curr_keys.filter( function( el ) {
-			return keys_in_box.indexOf( el ) < 0;
-} );
-              callback(curr_keys);
+			
+              callback(keys);
+			   $(".no_search ul:nth-last-child(2)").hide();
+
             }
           }
         });
